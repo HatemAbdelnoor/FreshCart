@@ -33,9 +33,9 @@ async   function handleRegister(values){
   }
   
   let validationSchema=Yup.object({
-    name:Yup.string().required("Name is required").min(3,"name minlength is 3").max(10,"name maxlength is 10"),
+    name:Yup.string().required("Name is required").min(3,"name minlength is 3").max(16,"name maxlength is 16"),
     email:Yup.string().required("Email is required").email("email is invalid"),
-    password:Yup.string().required("Password is required").matches(/[a-zA-Z0-9]{5,10}/,"password must start with a letter"),
+    password:Yup.string().min(8).max(16).required("Password is required"),
     rePassword:Yup.string().oneOf([Yup.ref('password'), null], "Passwords must match"),
     phone:Yup.string().required("Phone is required" ).matches(/^01[0125][0-9]{8}$/,"phone not valid")
   })
@@ -78,7 +78,7 @@ async   function handleRegister(values){
       
       
       {isloading? <button type='button' className='btn btn-primary'><i className='fas fa-spinner fa-spin'></i></button>:
-            <button disabled={! (formik.isValid && formik.dirty)}  type='submit' className='btn btn-primary'>Register</button>
+            <button disabled={! (formik.isValid && formik.dirty)}  type='submit' className='btn btn-primary my-3'>Register</button>
           }
 
       </div>

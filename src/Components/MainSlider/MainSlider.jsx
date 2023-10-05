@@ -9,11 +9,12 @@ function UncontrolledExample() {
   
   return <> 
   <div className="  container-fluid w-auto " >
-    <div className="row col-md-12 d-flex  ">
+    <div className="row col-12 d-flex mt-3 ">
     <Carousel>
       <Carousel.Item>
         <img
           className=""
+          height={500}
           src={skiderimg1}
           alt="First slide"
         />
@@ -22,6 +23,8 @@ function UncontrolledExample() {
       <Carousel.Item>
         <img
           className=""
+          height={500}
+
           src={skiderimg2}
           alt="Second slide"
         />
@@ -31,6 +34,8 @@ function UncontrolledExample() {
       <Carousel.Item>
         <img
           className=""
+          height={500}
+
           src={skiderimg3}
           alt="Third slide"
         />

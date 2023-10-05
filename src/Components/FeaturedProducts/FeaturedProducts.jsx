@@ -71,7 +71,7 @@ return <>
                   
                 </div>
                 </Link>
-                <button onClick={()=>addProudctToCart(product._id)}  className='btn  btn-success w-100'>add proudct</button>
+                <button onClick={()=>addProudctToCart(product._id)}  className='btn  btn-success  w-100'>add proudct</button>
     
               </div>
             ))}
@@ -80,7 +80,6 @@ return <>
         </div>
       </div>
     </div>
-    <button onClick={()=> getProducts()}  className='btn  btn-success w-100'>add proudct</button>
    
   </div>
   </div> : <Loding />

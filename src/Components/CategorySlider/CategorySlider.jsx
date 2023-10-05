@@ -23,15 +23,15 @@ export default function CategorySlider(){
     dots: true,
     infinite: true,
     speed: 500,
-    slidesToShow: 7,
+    slidesToShow: 4,
     slidesToScroll: 1
   };
     return<>
-    <div className="container-fluid  p-5">
+    <div className="container-fluid col-md-12  p-5">
     <Slider {...settings} > 
     {Category.map((category,index)=><div className=""  key={index}>
 
- <img className="w-100 p-1 " height={200} src={category.image} alt="" />
+ <img className="w-100 p-1 " height={350} width={400} src={category.image} alt="" />
 <h2 className="h6 text-center pt-2">{category.name}</h2>
 
     </div>)}

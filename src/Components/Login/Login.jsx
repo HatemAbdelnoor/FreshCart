@@ -13,6 +13,7 @@ export default function Login({saveUserData}) {
   
   let navigate = useNavigate();
  const [isloading,setisloading]= useState(false);
+ const [data, setdata] = useState("seond")
 
 
 async   function handleLogin(values){
@@ -21,7 +22,7 @@ async   function handleLogin(values){
             setisloading(true);
 
 
-    if (data.message=="success"){
+    if (data?.message=="success"){
 
 
       localStorage.setItem("userToken", data.token);
@@ -32,14 +33,17 @@ async   function handleLogin(values){
       toast.success(`welcome${data.user.name}`)
 
 
+    }else{
+
+      toast.error(data.message)
     }
-   
+    
 
   }
   
   let validationSchema=Yup.object({
     email:Yup.string().required("Email is required").email("email is invalid"),
-    password:Yup.string().required("Password is required").matches(/^[A-Z][a-zA-Z0-9]{5,10}$/,"password must start with a letter"),
+    password:Yup.string().min(8).max(16).required("Password is required"),
   })
   
   let formik = useFormik({
@@ -56,13 +60,15 @@ async   function handleLogin(values){
   const responseMessage = (response) => {
     console.log(response);
 };
-const errorMessage = (error) => {
-    console.log(error);
+const errorMessage = () => {
+toast.error("Incorrect email or password")
+
+
 };
    
   return <>
 
-  <form  onSubmit={formik.handleSubmit}>
+  <form   onSubmit={formik.handleSubmit}>
 
     <div className='w-75 mx-auto py-4' >
       <label htmlFor='email' >email</label>
@@ -71,7 +77,7 @@ const errorMessage = (error) => {
       <input type='password'  onBlur={formik.handleBlur} className='form-control' id='password' name='password' onChange={formik.handleChange} value={formik.values.password} />
       
       
-             <button disabled={! (formik.isValid && formik.dirty && !isloading)}  type='submit' className='btn btn-primary'>
+             <button disabled={! (formik.isValid && formik.dirty && !isloading)}   type='submit' className='btn btn-primary mt-2' >
           
       {!isloading ? "Login":<i className=' fas fa-spinner fa-spin ' ></i>}
       </button>
