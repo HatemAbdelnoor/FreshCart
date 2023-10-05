@@ -2,7 +2,7 @@ import styles from './Login.module.css';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
@@ -81,9 +81,10 @@ toast.error("Incorrect email or password")
           
       {!isloading ? "Login":<i className=' fas fa-spinner fa-spin ' ></i>}
       </button>
+      <section className='text-center mt-3'> if you don have Email you can <a className='' href=""> <Link className='fw-bolder'  to="/register">Register now</Link></a> </section>
+
         <br />
             <br />
-            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
 
       </div>
 
