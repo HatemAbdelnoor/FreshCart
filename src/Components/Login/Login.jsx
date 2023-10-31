@@ -2,27 +2,29 @@ import styles from './Login.module.css';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import { googleLogout, useGoogleLogin } from '@react-oauth/google';
 import { toast } from 'react-hot-toast';
+import { Helmet } from 'react-helmet';
 
 export default function Login({saveUserData}) {
 
   
   let navigate = useNavigate();
  const [isloading,setisloading]= useState(false);
- const [data, setdata] = useState("seond")
 
 
 async   function handleLogin(values){
-    let {data}=  await axios.post(`https://route-ecommerce.onrender.com/api/v1/auth/signin`,values);
+    let {data}=  await axios.post(`https://route-ecommerce.onrender.com/api/v1/auth/signin`,values).catch(()=>{  
+      toast.error(`Email or password incorrect`)  
+})
 
             setisloading(true);
 
 
-    if (data?.message=="success"){
+    if (data.message=="success"){
 
 
       localStorage.setItem("userToken", data.token);
@@ -33,17 +35,14 @@ async   function handleLogin(values){
       toast.success(`welcome${data.user.name}`)
 
 
-    }else{
-
-      toast.error(data.message)
     }
-    
+   
 
   }
   
   let validationSchema=Yup.object({
     email:Yup.string().required("Email is required").email("email is invalid"),
-    password:Yup.string().min(8).max(16).required("Password is required"),
+    password:Yup.string().required("Password is required").matches(/^[A-Z][a-zA-Z0-9]{5,10}$/,"password must start with a letter"),
   })
   
   let formik = useFormik({
@@ -60,15 +59,15 @@ async   function handleLogin(values){
   const responseMessage = (response) => {
     console.log(response);
 };
-const errorMessage = () => {
-toast.error("Incorrect email or password")
-
-
+const errorMessage = (error) => {
+    console.log(error);
 };
    
   return <>
-
-  <form   onSubmit={formik.handleSubmit}>
+   <Helmet>
+    <title>Login </title>
+   </Helmet>
+  <form  onSubmit={formik.handleSubmit}>
 
     <div className='w-75 mx-auto py-4' >
       <label htmlFor='email' >email</label>
@@ -77,14 +76,13 @@ toast.error("Incorrect email or password")
       <input type='password'  onBlur={formik.handleBlur} className='form-control' id='password' name='password' onChange={formik.handleChange} value={formik.values.password} />
       
       
-             <button disabled={! (formik.isValid && formik.dirty && !isloading)}   type='submit' className='btn btn-primary mt-2' >
+             <button disabled={! (formik.isValid && formik.dirty && !isloading)}  type='submit' className='btn btn-primary'>
           
       {!isloading ? "Login":<i className=' fas fa-spinner fa-spin ' ></i>}
       </button>
-      <section className='text-center mt-3'> if you don have Email you can <a className='' href=""> <Link className='fw-bolder'  to="/register">Register now</Link></a> </section>
-
         <br />
             <br />
+            <GoogleLogin onSuccess={responseMessage} onError={errorMessage} />
 
       </div>
 
