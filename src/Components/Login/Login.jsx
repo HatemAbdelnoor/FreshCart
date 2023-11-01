@@ -42,7 +42,7 @@ async   function handleLogin(values){
   
   let validationSchema=Yup.object({
     email:Yup.string().required("Email is required").email("email is invalid"),
-    password:Yup.string().required("Password is required").matches(/^[A-Z][a-zA-Z0-9]{5,10}$/,"password must start with a letter"),
+    password:Yup.string().required("Password is required").matches(/[a-zA-Z0-9]{5,10}$/,"password must be 5 characters long at least"),
   })
   
   let formik = useFormik({
