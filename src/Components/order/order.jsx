@@ -1,83 +1,72 @@
-import React, { useState } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
+import "./order.css"
+import { useFormik } from 'formik';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import { Navigate } from 'react-router-dom';
+import { CartContext } from '../../Context/CartContext';
 const OrderRequestForm = () => {
-  const [shippingAddress, setShippingAddress] = useState('');
-  const [details, setDetails] = useState('');
-  const [phone, setPhone] = useState('');
-  const [city, setCity] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  let {getLoggedUserCart}=useContext(CartContext);
+  async function getCart(){
 
-    // Create the order request object
-    const orderRequest = {
-      shippingAddress,
-      details,
-      phone,
-      city
-    };
+    let response=await getLoggedUserCart();
+     setcartId(response.data.data._id);
+     let catID=response.data.data._id
+    console.log(catID);
+    
+}
+useEffect (()=>{
+    getCart();},[]);
 
-    // Perform actions with the order request, such as sending it to an API
-    console.log('Order Request:', orderRequest);
+const [cartId, setcartId] = useState(null);
 
-    // Reset the form fields
-    setShippingAddress('');
-    setDetails('');
-    setPhone('');
-    setCity('');
-  };
+
+  let userToken =localStorage.getItem('userToken');
+  let headers={ token:userToken };  
+  async   function handleOrder(values,catID){
+    let {data}=  await axios.post(`https://route-ecommerce.onrender.com/api/v1/auth/orders/${catID}`,values,{headers}).then((response) =>response).catch((err) =>err)
+      
+    if (data.status=="success"){
+
+
+      Navigate('/cart ');
+      toast.success(`order successfully`)
+
+
+    }
+   
+
+  }
+
+
+ let orderFormic= useFormik({
+    initialValues : {
+    details:"",
+    phone:"",
+    city:""
+  },
+    onsubmit:handleOrder
+ })
 
   return <> 
-  <div className='container-fluid col-md-10 d-flex justify-content-center mt-5  align-content-center'>  
-  
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="shippingAddress">Shipping Address:</label>
-        <input
-          type="text"
-          id="shippingAddress"
-          value={shippingAddress}
-          onChange={(e) => setShippingAddress(e.target.value)}
-          required
-        />
-      </div>
+<div className="w-50 m-auto p-5">
 
-      <div>
-        <label htmlFor="details">Details:</label>
-        <textarea
-          id="details"
-          value={details}
-          onChange={(e) => setDetails(e.target.value)}
-          required
-        ></textarea>
-      </div>
+  <form  onsubmit={orderFormic.handleSubmit} >
+ <label htmlFor="details">details</label>
+   <input type="text" name="details" id='details' className='form-control my-3'  onChange={orderFormic.handleChange} onBlur={orderFormic.handleBlur} /> 
 
-      <div>
-        <label htmlFor="phone">Phone:</label>
-        <input
-          type="text"
-          id="phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          required
-        />
-      </div>
+   <label htmlFor="phone">phone</label>
+   <input type="text" name="phone" id='phone' className='form-control my-3'  onChange={orderFormic.handleChange} onBlur={orderFormic.handleBlur} /> 
 
-      <div>
-        <label htmlFor="city">City:</label>
-        <input
-          type="text"
-          id="city"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          required
-        />
-      </div>
+ <label htmlFor="city">city</label>
+   <input type="text" name="city" id='city' className='form-control my-3'  onChange={orderFormic.handleChange} onBlur={orderFormic.handleBlur} /> 
+   <button type='submit' className=' btn btn-success w-100  text-white  '>Place Order</button>
+ 
+  </form>
+</div>
 
-      <button type="submit">Submit</button>
-    </form>
-    </div>
-    </>
+  </>
 };
 
 export default OrderRequestForm;

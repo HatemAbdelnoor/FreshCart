@@ -4,6 +4,7 @@ import CartContextProvider, { CartContext } from '../../Context/CartContext';
 import { toast } from 'react-hot-toast';
 import { Helmet } from "react-helmet";
 import Loding from './../Loding/Loding';
+import { Link } from "react-router-dom";
 
 
 export default function Cart(){
@@ -14,7 +15,6 @@ async function RemoveItem(productId){
     let Response = await RemoveSpecificCartItem(productId);
     setcartDetails(Response.data);
 
-    console.log(productId);
     console.log(Response);
     if(Response.data.status=="success")
 {
@@ -92,7 +92,8 @@ const [cartDetails, setcartDetails] = useState(null);
             </div>) }
             <h6 className="text-success text-center "> Total Price : {cartDetails?.data.totalCartPrice} EGP</h6>
 
-            <button   className=" btn  w-100 btn-outline-success p-2 text-center">  pay </button>
+            <Link  Link to ={'/order'}    className=" btn  w-100 btn-outline-success p-2 text-center">  pay
+             </Link>
 
     </div>:<Loding/>}
     

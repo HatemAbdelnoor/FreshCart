@@ -1,7 +1,9 @@
 import React from 'react'
 import Navbar from '../Navbar/Navbar';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { toast } from 'react-hot-toast';
+import { Offline, Online } from "react-detect-offline";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Layout( {userDate,setuUserDate}) {
   let navigate = useNavigate();
@@ -15,11 +17,17 @@ export default function Layout( {userDate,setuUserDate}) {
     
    navigate  ("/login");
 
-
+    
  };
+ const offline = () => toast("You're  offline");
   return <>
   
  <Navbar LogOut={LogOut}   userDate={userDate}   />
+ <div>
+    <Offline onChange={offline}></Offline>
+    <ToastContainer />
+
+  </div>
 <Outlet></Outlet>
 
   </>
