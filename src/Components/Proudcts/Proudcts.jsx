@@ -12,7 +12,7 @@ export default function Products() {
   let {addToCart} = useContext(CartContext)
   const [products, setProducts] = useState([]);
   async function getProducts() {   
-    let {data}= await axios.get(`https://route-ecommerce.onrender.com/api/v1/products`)
+    let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products`)
 setProducts(data.data)
     console.log(data.data);
   }

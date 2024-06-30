@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 export default function Brands(){
 function getBrands(){
 
-    return axios.get(`https://route-ecommerce.onrender.com/api/v1/Brands`)
+    return axios.get(`https://ecommerce.routemisr.com/api/v1/Brands`)
    .then((response) =>response).catch((err) =>err)
 }
     async function setBrands(){

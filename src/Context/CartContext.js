@@ -10,7 +10,7 @@ export default function CartContextProvider(props){
     
     function addToCart(productId){
 
-    return axios.post(`https://route-ecommerce.onrender.com/api/v1/Cart`,
+    return axios.post(`https://ecommerce.routemisr.com/api/v1/Cart`,
    { productId : productId}
    ,{headers})
    .then((response) =>response).catch((err) =>err)
@@ -19,18 +19,18 @@ export default function CartContextProvider(props){
 
 function RemoveSpecificCartItem(productId){
 
-    return axios.delete(`https://route-ecommerce.onrender.com/api/v1/Cart/${productId}`,{headers})
+    return axios.delete(`https://ecommerce.routemisr.com/api/v1/Cart/${productId}`,{headers})
    .then((response) =>response).catch((err) =>err)
 
 }
 function getLoggedUserCart(){
 
-    return axios.get(`https://route-ecommerce.onrender.com/api/v1/Cart`,
+    return axios.get(`https://ecommerce.routemisr.com/api/v1/Cart`,
    {headers})
    .then((response) =>response).catch((err) =>err)
 }
    function updateProudct(productId , proudctCount){
-    return axios.put(`https://route-ecommerce.onrender.com/api/v1/Cart/${productId}`, {count:proudctCount} , {headers})
+    return axios.put(`https://ecommerce.routemisr.com/api/v1/Cart/${productId}`, {count:proudctCount} , {headers})
    .then((response) =>response).catch((err) =>err)
 
 }

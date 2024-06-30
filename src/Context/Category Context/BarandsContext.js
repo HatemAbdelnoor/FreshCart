@@ -9,7 +9,7 @@ export default function BrandsContextProvider(props){
  
 function getBrands(){
 
-    return axios.get(`https://route-ecommerce.onrender.com/api/v1/Brands`)
+    return axios.get(`https://ecommerce.routemisr.com/api/v1/Brands`)
    .then((response) =>response).catch((err) =>err)
 }
 

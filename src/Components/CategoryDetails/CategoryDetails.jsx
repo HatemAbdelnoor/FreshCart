@@ -39,7 +39,7 @@ export default function CategoryDetails(){
     console.log(params.id);
   async function getproudctdetails(id) { 
   
-  let {data}= await axios.get(`https://route-ecommerce.onrender.com/api/v1/categories/${id}`)
+  let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/categories/${id}`)
   
   setproudctDetails (data.data);
   }

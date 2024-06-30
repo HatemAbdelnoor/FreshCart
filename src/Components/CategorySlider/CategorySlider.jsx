@@ -11,7 +11,7 @@ export default function CategorySlider(){
     const [Category, setCategory] = useState([]);
    
     async function getCategory() {   
-      let {data}= await axios.get(`https://route-ecommerce.onrender.com/api/v1/Categories`)
+      let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/Categories`)
   setCategory(data.data)
       console.log(data.data);
     }

@@ -11,7 +11,7 @@ export default function FeaturedProducts() {
   let {addToCart} = useContext(CartContext)
   const [products, setProducts] = useState([]);
   async function getProducts(noPage,noProduct ) {   
-    let {data}= await axios.get(`https://route-ecommerce.onrender.com/api/v1/products?page=${noPage}&limit=${noProduct}`)
+    let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products?page=${noPage}&limit=${noProduct}`)
 setProducts(data.data)
     console.log(data.data);
   }

@@ -8,7 +8,7 @@ import Loding from './../Loding/Loding';
 export default function Categories(){
 function getCategories(){
 
-    return axios.get(`https://route-ecommerce.onrender.com/api/v1/Categories`)
+    return axios.get(`https://ecommerce.routemisr.com/api/v1/Categories`)
    .then((response) =>response).catch((err) =>err)
 }
     async function setCategories(){

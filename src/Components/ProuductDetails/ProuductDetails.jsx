@@ -35,7 +35,7 @@ const [proudctDetails, setproudctDetails] = useState(null);
   console.log(params);
 async function getproudctdetails(id) { 
 
-let {data}= await axios.get(`https://route-ecommerce.onrender.com/api/v1/products/${id}`)
+let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`)
 
 
 setproudctDetails (data.data);

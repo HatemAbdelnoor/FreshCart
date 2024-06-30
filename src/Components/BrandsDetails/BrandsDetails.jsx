@@ -11,7 +11,7 @@ const [products, setProducts] = useState([]);
 let params = useParams();
 
 async function getProducts(id) {   
-  let {data}= await axios.get(`https://route-ecommerce.onrender.com/api/v1/products?brand=${id}`)
+  let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products?brand=${id}`)
 setProducts(data.data)
   console.log(data.data);
 }
