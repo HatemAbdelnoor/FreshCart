@@ -26,6 +26,7 @@ export default function Layout( {userDate,setuUserDate}) {
  <div>
     <Offline onChange={offline}></Offline>
     <ToastContainer />
+    <a href="https://www.livechat.com/chat-with/18347595/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a>
 
   </div>
 <Outlet></Outlet>
